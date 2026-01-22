@@ -3,7 +3,7 @@ from django.utils import timezone
 from staffs.models import StaffModel
 
 class VehicleModel(models.Model):
-    plate_number= models.CharField(max_length=10)
+    plate_number= models.CharField(max_length=10, unique=True)
     staff_id = models.ForeignKey(StaffModel, on_delete=models.CASCADE, related_name="vehicles")
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(default=timezone.now, editable=False)
