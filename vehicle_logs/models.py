@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from staffs.models import StaffModel
 
 DIRECTION_CHOICES = [
@@ -8,11 +7,12 @@ DIRECTION_CHOICES = [
 ]
 class CheckInModel(models.Model):
     plate_number = models.CharField(max_length=10)
-    staff_id = models.ForeignKey(StaffModel, null=True, blank=True, on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(default=timezone.now, editable=False)
+    vehicle = models.ForeignKey("vehicles.VehicleModel", null=True, blank=True, on_delete=models.SET_NULL)
+    staff = models.ForeignKey("staffs.StaffModel", null=True, blank=True, on_delete=models.SET_NULL)
+    timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     gate = models.CharField(max_length=50)
     direction = models.CharField(max_length=3,choices=DIRECTION_CHOICES)
-    image_part = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="vehicle_logs/%Y/%m/%d/", null=True, blank=True)
     def __str__(self)->str:
         return f"{self.plate_number} ({self.staff_id}) ({self.gate}) ({self.timestamp})"
     def save(self, *args, **kwargs):
