@@ -10,3 +10,6 @@ class VehicleModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self)->str:
         return f"{self.plate_number} ({self.staff_id})"
+    def save(self, *args, **kwargs):
+        self.plate_number = self.plate_number.upper()
+        super(VehicleModel, self).save(*args, **kwargs)
