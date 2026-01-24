@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+
 
 class StaffModel(models.Model):
     staff_number = models.CharField(max_length=255,db_index=True,unique=True)
@@ -9,7 +9,7 @@ class StaffModel(models.Model):
     phone_number = models.CharField(max_length=15)
     is_active = models.BooleanField(default=True)
     is_allowance_legible = models.BooleanField(default=False)
-    created_at = models.DateTimeField(default=timezone.now, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         ordering = ["-created_at"]

@@ -42,11 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'staffs.apps.StaffsConfig',
-    'attendance.apps.AttendanceConfig',
+    'attendances.apps.AttendancesConfig',
     'vehicles.apps.VehiclesConfig',
     'vehicle_logs.apps.VehicleLogsConfig',
     'reports.apps.ReportsConfig',
-    'allowance.apps.AllowanceConfig',
+    'allowances.apps.AllowancesConfig',
     'rest_framework',
     
     

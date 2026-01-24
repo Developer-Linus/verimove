@@ -1,7 +1,7 @@
 from django.db import models
-from django.utils import timezone
 from staffs.models import StaffModel
 from vehicle_logs.models import CheckInModel
+from datetime import date
 
 STATUS_CHOICES = [
     ('PENDING', 'Pending'),
@@ -25,3 +25,14 @@ class AllowanceModel(models.Model):
 
     def __str__(self) -> str:
         return f"{self.staff.staff_number} {self.month:%Y-%m} {self.total_amount}"
+    
+    def save(self, *args, **kwargs):
+       
+        if self.month:
+            # Normalize to first day of the month
+            self.month = self.month.replace(day=1)
+
+        # Always compute total automatically
+        self.total_amount = (self.days_present or 0) * (self.rate_per_day or 0)
+
+        super().save(*args, **kwargs)
