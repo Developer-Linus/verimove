@@ -7,7 +7,7 @@ DIRECTION_CHOICES = [
     ('OUT', 'OUT'),
 ]
 class CheckInModel(models.Model):
-    plate_number = models.CharField(max_length=10, unique=True)
+    plate_number = models.CharField(max_length=10)
     staff_id = models.ForeignKey(StaffModel, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now, editable=False)
     gate = models.CharField(max_length=50)
