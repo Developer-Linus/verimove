@@ -8,7 +8,7 @@ DIRECTION_CHOICES = [
 ]
 class CheckInModel(models.Model):
     plate_number = models.CharField(max_length=10)
-    staff_id = models.ForeignKey(StaffModel, on_delete=models.CASCADE)
+    staff_id = models.ForeignKey(StaffModel, null=True, blank=True, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now, editable=False)
     gate = models.CharField(max_length=50)
     direction = models.CharField(max_length=3,choices=DIRECTION_CHOICES)
