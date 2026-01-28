@@ -7,10 +7,10 @@ class SourceChoices(models.TextChoices):
     MANUAL = "MANUAL", "Manual Entry"
 
 class AttendanceRecordModel(models.Model):
-    staff = models.ForeignKey(StaffModel, on_delete=models.CASCADE, related_name="attendace_records")
+    staff = models.ForeignKey(StaffModel, on_delete=models.CASCADE, related_name="attendance_records")
     date = models.DateField(db_index=True)
-    first_checkin= models.ForeignKey(CheckInModel, on_delete=models.SET_NULL, null= True, blank=True, related_name = "attendace_first_checkin")
-    source = models.CharField(choices=SourceChoices, max_length=100, default=SourceChoices.AUTO)
+    first_checkin= models.ForeignKey(CheckInModel, on_delete=models.SET_NULL, null= True, blank=True, related_name = "attendance_first_checkin")
+    source = models.CharField(choices=SourceChoices.choices, max_length=10, default=SourceChoices.AUTO)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     class Meta:
