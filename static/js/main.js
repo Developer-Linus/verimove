@@ -1,1 +1,6 @@
-console.log("This is the console log from About page.")
+document.addEventListener("DOMContentLoaded", function () {
+  const yearEl = document.getElementById("copyright-year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+});

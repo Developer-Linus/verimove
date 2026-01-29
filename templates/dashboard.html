@@ -1,95 +1,146 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block content %}
+<div class="container py-5">
+  <div class="row mb-4 align-items-center">
+    <div class="col-md-8">
+      <h1 class="display-5 fw-bold">
+        <i class="bi bi-shield-check text-primary"></i> Verimove Dashboard
+      </h1>
+      <p class="lead text-muted">
+        University Allowance Management & Vehicle Attendance
+      </p>
+    </div>
+    <div class="col-md-4 text-md-end">
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm mb-2">
+        <i class="bi bi-house me-1"></i> Exit to Home
+      </a>
+      <p class="small text-muted mb-0">System Live: {% now "H:i" %}</p>
+    </div>
+  </div>
 
-{% block content %}
-<div class="py-5">
-    <div class="row mb-4">
-        <div class="col">
-            <h1 class="display-5 fw-bold">
-                <i class="bi bi-shield-check text-primary"></i> Verimove Dashboard
-            </h1>
-            <p class="lead text-muted">University Allowance Management & Vehicle Attendance System</p>
+  <div class="row g-4 mb-5">
+    <div class="col-md-4">
+      <div
+        class="card border-0 shadow-sm bg-primary text-white h-100 hover-lift"
+      >
+        <div
+          class="card-body p-4 d-flex justify-content-between align-items-center"
+        >
+          <div>
+            <h6 class="text-uppercase opacity-75 mb-1 small fw-bold">
+              Today's Check-ins
+            </h6>
+            <h2 class="mb-0 display-6 fw-bold">
+              {{ today_checkins|default:"0" }}
+            </h2>
+          </div>
+          <i class="bi bi-car-front-fill fs-1 opacity-50"></i>
         </div>
+      </div>
     </div>
 
-    <div class="row g-4 mb-5">
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm bg-primary text-white p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-uppercase mb-1">Today's Check-ins</h6>
-                        <h2 class="mb-0">{{ today_checkins|default:"0" }}</h2>
-                    </div>
-                    <i class="bi bi-car-front-fill fs-1 opacity-50"></i>
-                </div>
-            </div>
+    <div class="col-md-4">
+      <div
+        class="card border-0 shadow-sm bg-success text-white h-100 hover-lift"
+      >
+        <div
+          class="card-body p-4 d-flex justify-content-between align-items-center"
+        >
+          <div>
+            <h6 class="text-uppercase opacity-75 mb-1 small fw-bold">
+              Staff Registered
+            </h6>
+            <h2 class="mb-0 display-6 fw-bold">
+              {{ staff_count|default:"0" }}
+            </h2>
+          </div>
+          <i class="bi bi-people-fill fs-1 opacity-50"></i>
         </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm bg-success text-white p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-uppercase mb-1">Staff Registered</h6>
-                        <h2 class="mb-0">{{ staff_count|default:"0" }}</h2>
-                    </div>
-                    <i class="bi bi-people-fill fs-1 opacity-50"></i>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm bg-warning text-dark p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="text-uppercase mb-1">Pending Payouts</h6>
-                        <h2 class="mb-0">${{ pending_payouts|default:"0.00" }}</h2>
-                    </div>
-                    <i class="bi bi-cash-stack fs-1 opacity-50"></i>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <h3 class="mb-4 text-secondary">Administrative Actions</h3>
-    <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center d-flex flex-column">
-                    <div class="feature-icon bg-light text-primary mb-3 py-3 rounded">
-                        <i class="bi bi-calculator fs-2"></i>
-                    </div>
-                    <h5 class="card-title">Generate Allowances</h5>
-                    <p class="card-text text-muted flex-grow-1">Compute monthly staff payouts based on verified
-                        attendance records.</p>
-                    <a href="{% url 'allowances:generate' %}" class="btn btn-primary w-100">Open Processor</a>
-                </div>
-            </div>
+    <div class="col-md-4">
+      <div
+        class="card border-0 shadow-sm bg-warning text-dark h-100 hover-lift"
+      >
+        <div
+          class="card-body p-4 d-flex justify-content-between align-items-center"
+        >
+          <div>
+            <h6 class="text-uppercase opacity-75 mb-1 small fw-bold">
+              Pending Payouts
+            </h6>
+            <h2 class="mb-0 display-6 fw-bold">
+              ${{ pending_payouts|default:"0.00" }}
+            </h2>
+          </div>
+          <i class="bi bi-cash-stack fs-1 opacity-50"></i>
         </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center d-flex flex-column">
-                    <div class="feature-icon bg-light text-success mb-3 py-3 rounded">
-                        <i class="bi bi-camera-video fs-2"></i>
-                    </div>
-                    <h5 class="card-title">Live Check-ins</h5>
-                    <p class="card-text text-muted flex-grow-1">Review plate number logs and verify vehicle evidence for
-                        today.</p>
-                    <a href="#" class="btn btn-outline-success w-100">View Attendance</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center d-flex flex-column">
-                    <div class="feature-icon bg-light text-secondary mb-3 py-3 rounded">
-                        <i class="bi bi-person-badge fs-2"></i>
-                    </div>
-                    <h5 class="card-title">Staff Management</h5>
-                    <p class="card-text text-muted flex-grow-1">Manage university staff members and their registered
-                        vehicle plate numbers.</p>
-                    <a href="{% url 'admin:index' %}" class="btn btn-outline-secondary w-100">Manage Staff</a>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
+
+  <h3 class="mb-4 text-secondary fw-bold">Administrative Actions</h3>
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0 hover-lift">
+        <div class="card-body text-center d-flex flex-column p-4">
+          <div
+            class="feature-icon bg-primary-subtle text-primary mb-3 py-3 rounded-4"
+          >
+            <i class="bi bi-calculator fs-2"></i>
+          </div>
+          <h5 class="fw-bold">Generate Allowances</h5>
+          <p class="card-text text-muted flex-grow-1 small">
+            Run computation for finalized staff payouts based on plate logs.
+          </p>
+          <a
+            href="{% url 'allowances:generate' %}"
+            class="btn btn-primary w-100 mt-3 shadow-sm"
+            >Open Processor</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0 hover-lift">
+        <div class="card-body text-center d-flex flex-column p-4">
+          <div
+            class="feature-icon bg-success-subtle text-success mb-3 py-3 rounded-4"
+          >
+            <i class="bi bi-camera-video fs-2"></i>
+          </div>
+          <h5 class="fw-bold">Live Check-ins</h5>
+          <p class="card-text text-muted flex-grow-1 small">
+            Monitor real-time plate recognition logs and capture evidence.
+          </p>
+          <a href="#" class="btn btn-outline-success w-100 mt-3"
+            >View Attendance</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-sm border-0 hover-lift">
+        <div class="card-body text-center d-flex flex-column p-4">
+          <div
+            class="feature-icon bg-secondary-subtle text-secondary mb-3 py-3 rounded-4"
+          >
+            <i class="bi bi-person-badge fs-2"></i>
+          </div>
+          <h5 class="fw-bold">Staff Management</h5>
+          <p class="card-text text-muted flex-grow-1 small">
+            Link vehicle plates and manage staff profile data.
+          </p>
+          <a
+            href="{% url 'admin:index' %}"
+            class="btn btn-outline-secondary w-100 mt-3"
+            >Manage Database</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

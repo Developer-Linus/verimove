@@ -1,23 +1,65 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block content %}
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <!-- Header -->
+        <div class="mb-4 text-center">
+          <h1 class="fw-bold">Generate Allowances</h1>
+          <p class="text-muted">
+            Select a month and rate per day, then generate allowances for all
+            eligible staff.
+          </p>
+        </div>
 
-{% block content %}
-<h1>Generate Allowances</h1>
-<p>Select a month and rate per day, then generate allowances for all eligible staff.</p>
+        <!-- Form Card -->
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+          <div class="card-body p-4">
+            <form method="post">
+              {% csrf_token %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Generate</button>
-</form>
+              <div class="row g-3">{{ form.as_p }}</div>
 
-{% if result %}
-<hr />
-<h2>Result</h2>
-<ul>
-    <li><strong>Eligible:</strong> {{ result.eligible }}</li>
-    <li><strong>Created:</strong> {{ result.created }}</li>
-    <li><strong>Updated:</strong> {{ result.updated }}</li>
-    <li><strong>Skipped (PAID):</strong> {{ result.skipped_paid }}</li>
-</ul>
-{% endif %}
+              <div class="d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-primary px-5 fw-bold">
+                  <i class="bi bi-calculator me-2"></i>Generate Allowances
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Result Summary -->
+        {% if result %}
+        <div class="card border-0 shadow-sm rounded-4">
+          <div class="card-body p-4">
+            <h5 class="fw-bold mb-3">Generation Result</h5>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Eligible Staff</span>
+                <span class="fw-bold">{{ result.eligible }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>New Allowances Created</span>
+                <span class="fw-bold text-success">{{ result.created }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Existing Allowances Updated</span>
+                <span class="fw-bold text-primary">{{ result.updated }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Skipped (Already Paid)</span>
+                <span class="fw-bold text-danger"
+                  >{{ result.skipped_paid }}</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
