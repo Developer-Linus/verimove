@@ -1,0 +1,103 @@
+{% extends "layout.html" %} {% block content %}
+<section class="py-5 text-center bg-white border-bottom shadow-sm">
+  <div class="container py-5">
+    <div class="vm-brand mb-4">
+      <span class="vm-v">V</span><span class="vm-m">M</span>
+      <span class="logic-indicator shadow-sm">Vehicle Verified</span>
+    </div>
+    <h1 class="display-3 fw-bold text-dark">Verimove</h1>
+    <p class="col-lg-7 mx-auto lead text-muted mb-5">
+      The University's automated attendance ecosystem. We use
+      <strong>vehicle plate recognition</strong>
+      to verify your presence on campus and seamlessly calculate your monthly
+      allowances.
+    </p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a
+        href="{% url 'allowances:generate' %}"
+        class="btn btn-primary btn-lg px-5 fw-bold shadow"
+      >
+        <i class="bi bi-gear-fill me-2"></i> Admin Portal
+      </a>
+      <button class="btn btn-outline-dark btn-lg px-5">
+        <i class="bi bi-info-circle me-2"></i> System Status
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 bg-light" id="how-it-works">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">From Arrival to Allowance</h2>
+      <p class="text-muted">
+        A fully automated verification pipeline for university staff.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-4">
+          <div class="mx-auto mb-3 text-primary">
+            <i class="bi bi-p-square-fill display-4"></i>
+          </div>
+          <h4 class="fw-bold">1. Capture</h4>
+          <p class="text-muted small">
+            Your vehicle plate is scanned at the campus entry point. This acts
+            as your digital time-stamp.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-4">
+          <div class="mx-auto mb-3 text-success">
+            <i class="bi bi-database-check display-4"></i>
+          </div>
+          <h4 class="fw-bold">2. Verify</h4>
+          <p class="text-muted small">
+            Our system matches the plate to your staff profile and logs a unique
+            attendance day.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-4">
+          <div class="mx-auto mb-3 text-warning">
+            <i class="bi bi-currency-exchange display-4"></i>
+          </div>
+          <h4 class="fw-bold">3. Credit</h4>
+          <p class="text-muted small">
+            At month-end, allowances are computed based on these verified logs
+            and credited to your account.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container py-5 my-5">
+  <div
+    class="bg-dark text-white rounded-5 p-5 shadow-lg overflow-hidden position-relative"
+  >
+    <div class="row align-items-center">
+      <div class="col-lg-7 z-1">
+        <h2 class="display-5 fw-bold mb-3">Finance & Management</h2>
+        <p class="lead opacity-75 mb-4">
+          Ready to process this month's payouts? Access the calculation engine
+          to review verified attendance and trigger allowance generation.
+        </p>
+        <a
+          href="{% url 'allowances:generate' %}"
+          class="btn btn-warning btn-lg px-4 fw-bold"
+        >
+          Start Allowance Generation
+        </a>
+      </div>
+      <div class="col-lg-5 text-end d-none d-lg-block">
+        <i class="bi bi-file-earmark-bar-graph display-1 opacity-25"></i>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
