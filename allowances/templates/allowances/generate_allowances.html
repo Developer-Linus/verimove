@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Generate Allowances</h1>
+<p>Select a month and rate per day, then generate allowances for all eligible staff.</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Generate</button>
+</form>
+
+{% if result %}
+<hr />
+<h2>Result</h2>
+<ul>
+    <li><strong>Eligible:</strong> {{ result.eligible }}</li>
+    <li><strong>Created:</strong> {{ result.created }}</li>
+    <li><strong>Updated:</strong> {{ result.updated }}</li>
+    <li><strong>Skipped (PAID):</strong> {{ result.skipped_paid }}</li>
+</ul>
+{% endif %}
+{% endblock %}
