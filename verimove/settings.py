@@ -125,10 +125,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-
+TIME_ZONE = 'Africa/Nairobi'
+USE_TZ = True
 
 REST_FRAMEWORK = {
-    
+    "DATETIME_FORMAT": "%Y-%m-%d %H:%M:%S",
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     # ]
