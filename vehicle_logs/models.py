@@ -1,5 +1,6 @@
 from django.db import models
 from staffs.models import StaffModel
+from vehicles.models import VehicleModel
 
 DIRECTION_CHOICES = [
     ('IN', 'IN'),
@@ -7,8 +8,8 @@ DIRECTION_CHOICES = [
 ]
 class CheckInModel(models.Model):
     plate_number = models.CharField(max_length=10)
-    vehicle = models.ForeignKey("vehicles.VehicleModel", null=True, blank=True, on_delete=models.SET_NULL)
-    staff = models.ForeignKey("staffs.StaffModel", null=True, blank=True, on_delete=models.SET_NULL)
+    vehicle = models.ForeignKey(VehicleModel, null=True, blank=True, on_delete=models.SET_NULL)
+    staff = models.ForeignKey(StaffModel, null=True, blank=True, on_delete=models.SET_NULL)
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     gate = models.CharField(max_length=50)
     direction = models.CharField(max_length=3,choices=DIRECTION_CHOICES)

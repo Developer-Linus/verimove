@@ -35,9 +35,8 @@ INSTALLED_APPS = [
     'vehicle_logs.apps.VehicleLogsConfig',
     'reports.apps.ReportsConfig',
     'allowances.apps.AllowancesConfig',
+    'verification.apps.VerificationConfig',
     'rest_framework',
-    
-    
 ]
 
 MIDDLEWARE = [

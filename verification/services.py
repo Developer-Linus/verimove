@@ -23,7 +23,7 @@ class ALPRProcessing:
         clean_plate = "".join(plate_text.split()).upper()
 
         # Step 1: Identification
-        vehicle = VehicleModel.objects.filter(plate=clean_plate).first()
+        vehicle = VehicleModel.objects.filter(plate_number=clean_plate).first()
         staff = vehicle.staff_id if vehicle else None
 
         # Step 2: Persistent security logging

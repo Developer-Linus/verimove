@@ -28,4 +28,5 @@ urlpatterns = [
     path('', include('vehicle_logs.urls')),
     path('', include('vehicles.urls')),
     path('', include('attendances.urls')),
+    path('', include('verification.urls')),
 ]
