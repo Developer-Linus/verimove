@@ -15,9 +15,10 @@ class ALPRProcessing:
         3. Check 06:00 - 18:00 window.
         4. Create AttendanceModel if it's the first check-in of the day.
         """
-        now = timezone.now()
-        current_time = now.time()
-        today = now.date()
+        # Convert it to 'Africa/Nairobi' as specified in settings.py
+        now_local = timezone.localtime(timezone.now())
+        current_time = now_local.time()
+        today = now_local.date()
 
         # Normalize plate text for database matching
         clean_plate = "".join(plate_text.split()).upper()
