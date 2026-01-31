@@ -1,8 +1,17 @@
 from django.shortcuts import render
-# Importing based on the app names and model names you provided
 from staffs.models import StaffModel
-from vehicle_logs.models import CheckInModel  # Adjust folder name if 'Vehicle Logs' uses an underscore
+from vehicle_logs.models import CheckInModel
 from allowances.models import AllowanceModel
+from django.utils import timezone
+from django.db.models import Sum
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.exceptions import PermissionDenied
+
+# Function to check if user is Finance or Admin
+def is_finance_staff(user):
+    if user.is_superuser or user.groups.filter(name='Finance').exists():
+        return True
+    raise PermissionDenied
 
 
 def homepage(request):
@@ -11,22 +20,19 @@ def homepage(request):
 def about(request):
     return render(request, 'about.html')
 
-from django.utils import timezone
-from django.db.models import Sum
 
 
-
+@login_required
+@user_passes_test(is_finance_staff)
 def dashboard(request):
-    # 1. Today's Check-ins (from Vehicle Logs app)
+    # 1. Today's Check-ins
     today = timezone.now().date()
-    # We count unique staff check-ins for today
     today_checkins = CheckInModel.objects.filter(timestamp__date=today).count()
     
-    # 2. Total Staff Count (from Staffs app)
+    # 2. Total Staff Count
     staff_count = StaffModel.objects.filter(is_active=True).count()
     
-    # 3. Pending Payouts (from Allowances app)
-    # We sum the 'total_amount' where status is 'pending'
+    # 3. Pending Payouts
     pending_data = AllowanceModel.objects.filter(status='pending').aggregate(Sum('total_amount'))
     pending_total = pending_data['total_amount__sum'] or 0
     

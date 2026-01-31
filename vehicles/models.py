@@ -10,5 +10,6 @@ class VehicleModel(models.Model):
     def __str__(self)->str:
         return f"{self.plate_number} ({self.staff_id})"
     def save(self, *args, **kwargs):
-        self.plate_number = self.plate_number.upper()
-        super(VehicleModel, self).save(*args, **kwargs)
+        if self.plate_number:
+            self.plate_number = self.plate_number.replace(" ", "").upper()
+        super().save(*args, **kwargs)

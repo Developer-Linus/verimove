@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'reports.apps.ReportsConfig',
     'allowances.apps.AllowancesConfig',
     'verification.apps.VerificationConfig',
+    'accounts.apps.AccountsConfig',
     'rest_framework',
 ]
 
@@ -133,3 +134,11 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     # ]
 }
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# Where to go after a successful Login
+LOGIN_REDIRECT_URL = 'dashboard' 
+
+# Where to go after Logging Out
+LOGOUT_REDIRECT_URL = 'login'
